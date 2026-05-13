@@ -48,7 +48,7 @@ input[readonly] { background: #f9fafb; color: #344054; }
 button { border: 0; border-radius: 8px; padding: 10px 12px; font-weight: 800; cursor: pointer; }
 button.primary { background: var(--dcs); color: white; }
 button.secondary { background: #e4e7ec; color: #182230; }
-.summary { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+.summary { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
 .summary-header { display: flex; align-items: baseline; justify-content: space-between; margin: 6px 2px 8px; flex-wrap: wrap; gap: 8px; }
 .summary-header h3 { margin: 0; font-size: 14px; color: #344054; text-transform: uppercase; letter-spacing: .04em; }
 .summary-header span { font-size: 12px; color: var(--muted); }
@@ -66,7 +66,7 @@ button.secondary { background: #e4e7ec; color: #182230; }
 .table-head p { margin: 3px 0 0; color: var(--muted); font-size: 13px; }
 .actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .table-wrap { overflow: auto; max-height: calc(100vh - 335px); min-height: 420px; }
-table { width: 100%; min-width: 1620px; border-collapse: collapse; font-size: 13px; }
+table { width: 100%; min-width: 1720px; border-collapse: collapse; font-size: 13px; }
 th, td { border-bottom: 1px solid #eaecf0; padding: 8px; vertical-align: middle; }
 th { position: sticky; top: 0; z-index: 5; background: #f9fafb; color: #475467; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .03em; }
 th.site-col, td.site-col { position: sticky; left: 0; z-index: 4; background: white; box-shadow: 1px 0 0 #eaecf0; }
@@ -85,19 +85,23 @@ tr:nth-child(even) td.site-col { background: #fcfcfd; }
 .status.bad { background: #fee4e2; color: #b42318; }
 .status.neutral { background: #f2f4f7; color: #344054; }
 .footer-note { padding: 10px 14px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); background: #fcfcfd; line-height: 1.45; }
+@media (max-width: 1400px) {
+  .summary { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
 @media (max-width: 1100px) {
   .top-grid { grid-template-columns: 1fr; }
   .summary { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+/* Mobile single-route view: hidden on desktop, takes over at <=720px */
+.mobile-only { display: none; }
 @media (max-width: 720px) {
   body { font-size: 14px; }
-  .wrap { padding: 12px 12px 24px; }
   .header { padding: 12px 14px; }
   .header-row { gap: 10px; flex-direction: column; align-items: stretch; }
   .brand { gap: 10px; align-items: center; justify-content: flex-start; }
   .logo-box { width: 130px; min-height: 50px; padding: 6px 9px; }
-  .x { display: none; } /* drop the lonely cross on mobile */
+  .x { display: none; }
   .dpd-box { grid-template-columns: 56px auto; min-height: 50px; flex: 1 1 auto; }
   .dpd-logo { font-size: 19px; }
   .dpd-copy { padding: 7px 10px; }
@@ -106,43 +110,32 @@ tr:nth-child(even) td.site-col { background: #fcfcfd; }
   .title-block { width: 100%; }
   .title-block h1 { font-size: 18px; letter-spacing: -.3px; }
   .title-block p { font-size: 12px; margin-top: 3px; }
-  .top-grid { grid-template-columns: 1fr; gap: 10px; margin-bottom: 10px; }
-  .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px; }
-  .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-  .controls > div:has(#exportCsv) { grid-column: 1 / -1; }
-  .controls .control-actions { flex-direction: column; }
-  label { font-size: 11px; margin-bottom: 4px; }
-  label .fuel-pill { display: block; margin-left: 0; margin-top: 4px; width: max-content; }
-  input, select { padding: 7px 9px; font-size: 13px; }
-  button { padding: 9px 10px; font-size: 13px; }
-  .summary-header { margin: 4px 2px 6px; gap: 2px; flex-direction: column; align-items: flex-start; }
-  .summary-header h3 { font-size: 11px; }
-  .summary-header span { font-size: 10px; }
-  .metric { padding: 9px 10px; border-radius: 10px; }
-  .metric-label { font-size: 10px; }
-  .metric-value { font-size: 17px; margin-top: 3px; }
-  .metric-sub { font-size: 10px; }
-  .card { padding: 11px 12px; border-radius: 10px; }
-  .card h2 { font-size: 15px; margin-bottom: 5px; }
-  .card p { font-size: 12px; }
-  .table-card { border-radius: 10px; }
-  .table-head { padding: 10px 12px; }
-  .table-head h2 { font-size: 14px; }
-  .table-head p { font-size: 11px; }
-  .actions { width: 100%; }
-  .actions button { flex: 1 1 auto; font-size: 12px; padding: 8px 10px; }
-  .table-wrap { max-height: none; -webkit-overflow-scrolling: touch; }
-  th, td { padding: 6px 7px; font-size: 12px; }
-  th { font-size: 10px; }
-  .num, .rate, .hours { width: 64px; padding: 6px 8px; font-size: 12px; }
-  .site-name { min-width: 110px; font-size: 12px; }
-  .footer-note { padding: 9px 12px; font-size: 11px; line-height: 1.4; }
-}
-@media (max-width: 360px) {
-  .summary { grid-template-columns: 1fr; }
-  .controls { grid-template-columns: 1fr; }
-  .brand { flex-wrap: wrap; }
-  .dpd-box { width: 100%; }
+  /* Desktop multi-site view hidden on phones */
+  .wrap { display: none; }
+  .mobile-only { display: block; padding: 14px 14px 32px; max-width: 560px; margin: 0 auto; }
+  .m-card { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 14px; box-shadow: 0 1px 3px rgba(16,24,40,.06); margin-bottom: 12px; }
+  .m-card h2 { margin: 0 0 4px; font-size: 16px; }
+  .m-card p.muted { margin: 0 0 10px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+  .m-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .m-fields .full { grid-column: 1 / -1; }
+  .m-fields label { font-size: 11px; margin-bottom: 4px; }
+  .m-fields input { padding: 9px 10px; font-size: 14px; }
+  .m-fields label .fuel-pill { display: inline-block; margin-left: 6px; }
+  .m-prefilled { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+  .m-prefilled .chip { background: #f3fbf9; border: 1px solid #b9e6df; border-radius: 8px; padding: 8px 10px; }
+  .m-prefilled .chip .k { display: block; font-size: 10px; font-weight: 900; color: #036b5f; text-transform: uppercase; letter-spacing: .04em; }
+  .m-prefilled .chip .v { display: block; font-size: 14px; font-weight: 900; color: var(--ink); margin-top: 2px; }
+  .m-prefilled .chip .v small { display: block; font-size: 10px; font-weight: 600; color: var(--muted); margin-top: 2px; }
+  .m-out { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .m-out .m-metric { border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: white; }
+  .m-out .m-metric.full { grid-column: 1 / -1; }
+  .m-out .m-metric .lbl { font-size: 10px; font-weight: 900; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .m-out .m-metric .val { font-size: 18px; font-weight: 900; margin-top: 3px; }
+  .m-out .m-metric .sub { font-size: 10px; color: var(--muted); margin-top: 2px; line-height: 1.35; }
+  .m-out .m-metric .val.good { color: var(--good); }
+  .m-out .m-metric .val.bad { color: var(--bad); }
+  .m-section-title { font-size: 11px; font-weight: 900; color: #344054; text-transform: uppercase; letter-spacing: .05em; margin: 14px 2px 6px; }
+  .m-footer-note { color: var(--muted); font-size: 11px; line-height: 1.45; padding: 4px 6px 0; }
 }
 </style>
 </head>
@@ -240,7 +233,8 @@ tr:nth-child(even) td.site-col { background: #fcfcfd; }
             <th>DPD sliding earnings</th>
             <th>Difference</th>
             <th>Fuel cost / route</th>
-            <th>PPM (pence / mile)</th>
+            <th>Wear cost / route</th>
+            <th>Total PPM (fuel + wear)</th>
             <th>Driver duty time</th>
             <th>Driver rate calculated from NMW</th>
             <th>NMW required pay / route</th>
@@ -250,10 +244,73 @@ tr:nth-child(even) td.site-col { background: #fcfcfd; }
       </table>
     </div>
     <div class="footer-note">
-      Formula: DCS static earnings = routes × stops/route × DCS static stop rate. DPD sliding earnings = routes × stops/route × DPD matrix rate. Driver rate is calculated automatically from NMW: duty hours × baked NMW hourly rate ÷ stops/route. Fuel cost / route = miles ÷ MPG × 4.546 × (diesel price in £/L). PPM = (fuel cost / route) ÷ miles × 100. Diesel price defaults to the latest UK average and can be edited manually.
+      Formula: DCS static earnings = routes × stops/route × DCS static stop rate. DPD sliding earnings = routes × stops/route × DPD matrix rate. Driver rate is calculated automatically from NMW: duty hours × baked NMW hourly rate ÷ stops/route. Fuel cost / route = miles ÷ MPG × 4.546 × (diesel price in £/L). Wear cost / route = miles × 19p (fixed residual / wear & tear). Total PPM = fuel PPM + 19p wear. Diesel price defaults to the latest UK average and can be edited manually.
     </div>
   </section>
 </main>
+
+<section class="mobile-only" aria-label="Single-route mobile calculator">
+  <div class="m-card">
+    <h2>Single-route calculator</h2>
+    <p class="muted">One generic site, one route. Fuel PPM is calculated from the live UK diesel price and your MPG; wear &amp; tear is fixed at 19p / mile.</p>
+    <div class="m-fields">
+      <div class="full">
+        <label for="mSite">Site name</label>
+        <input id="mSite" type="text" placeholder="Enter site name">
+      </div>
+      <div>
+        <label for="mStops">Stops / route</label>
+        <input id="mStops" type="number" step="1" min="0" placeholder="e.g. 80">
+      </div>
+      <div>
+        <label for="mMiles">Miles / route</label>
+        <input id="mMiles" type="number" step="1" min="0" placeholder="e.g. 120">
+      </div>
+      <div>
+        <label for="mDcsRate">DCS static stop rate (£)</label>
+        <input id="mDcsRate" type="number" step="0.01" min="0" placeholder="e.g. 1.20">
+      </div>
+      <div>
+        <label for="mDuty">Driver duty time (hrs / route)</label>
+        <input id="mDuty" type="number" step="0.25" min="0" placeholder="e.g. 9">
+      </div>
+      <div>
+        <label for="mMpg">Average MPG</label>
+        <input id="mMpg" type="number" step="0.1" min="1" value="38">
+      </div>
+      <div>
+        <label for="mDieselPrice">Diesel (p / L) <span id="mDieselPill" class="fuel-pill">manual</span></label>
+        <input id="mDieselPrice" type="number" step="0.01" min="0" value="188.26">
+      </div>
+    </div>
+    <div class="m-prefilled" aria-hidden="false">
+      <div class="chip"><span class="k">Fuel PPM</span><span class="v" id="mFuelPpmChip">—<small id="mFuelPpmDetail">live diesel ÷ MPG</small></span></div>
+      <div class="chip"><span class="k">Wear &amp; tear PPM</span><span class="v" id="mWearPpmChip">19.00p / mile<small>fixed residual</small></span></div>
+    </div>
+  </div>
+
+  <div class="m-section-title">DCS vs DPD</div>
+  <div class="m-out">
+    <div class="m-metric"><div class="lbl">DCS earnings / route</div><div class="val" id="mDcsEarn">—</div><div class="sub" id="mDcsEarnSub">stops × DCS rate</div></div>
+    <div class="m-metric"><div class="lbl">DPD sliding earnings</div><div class="val" id="mDpdEarn">—</div><div class="sub" id="mDpdEarnSub">stops × DPD matrix</div></div>
+    <div class="m-metric full"><div class="lbl">Difference / route</div><div class="val" id="mDiff">—</div><div class="sub" id="mDiffSub">enter routes / stops to compare</div></div>
+  </div>
+
+  <div class="m-section-title">Cost &amp; PPM</div>
+  <div class="m-out">
+    <div class="m-metric"><div class="lbl">Fuel cost / route</div><div class="val" id="mFuelCost">—</div><div class="sub" id="mFuelCostSub">enter miles, MPG, price</div></div>
+    <div class="m-metric"><div class="lbl">Wear cost / route</div><div class="val" id="mWearCost">—</div><div class="sub" id="mWearCostSub">19p / mile</div></div>
+    <div class="m-metric full"><div class="lbl">Total PPM (fuel + wear)</div><div class="val" id="mTotalPpm">—</div><div class="sub" id="mTotalPpmSub">fuel + 19p wear</div></div>
+  </div>
+
+  <div class="m-section-title">Driver / NMW</div>
+  <div class="m-out">
+    <div class="m-metric"><div class="lbl">Driver rate (NMW ÷ stops)</div><div class="val" id="mDriverRate">—</div><div class="sub">auto from duty hrs × £12.71</div></div>
+    <div class="m-metric"><div class="lbl">NMW pay / route</div><div class="val" id="mNmwPay">—</div><div class="sub" id="mNmwPaySub">duty hrs × £12.71</div></div>
+  </div>
+
+  <div class="m-footer-note">Tap the diesel pill to refresh the live price. Switch to desktop for the full multi-site view.</div>
+</section>
 
 <script>
 const DPD_SCALE = {"mileageBands":[10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300],"stopsBands":[5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180,185,190,195,200,205,210,215,220,225,230,235,240,245,250,255,260,265,270,275,280,285,290,295,300],"rates":[[5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0],[5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0],[5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0],[5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0],[4.39,4.47,4.56,4.64,4.9,4.99,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0],[3.8,3.87,3.95,4.02,4.23,4.3,4.37,4.6,4.69,4.78,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0],[3.39,3.45,3.51,3.57,3.75,3.81,3.87,4.06,4.14,4.22,4.43,4.51,4.71,4.79,4.99,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0],[3.07,3.13,3.18,3.23,3.39,3.45,3.5,3.67,3.74,3.8,3.98,4.05,4.23,4.3,4.48,4.55,4.73,4.8,4.98,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0],[2.83,2.88,2.92,2.97,3.11,3.16,3.21,3.36,3.42,3.48,3.64,3.7,3.86,3.92,4.08,4.14,4.3,4.36,4.52,4.58,4.8,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0],[2.63,2.68,2.72,2.76,2.89,2.93,2.97,3.11,3.16,3.22,3.36,3.42,3.56,3.62,3.76,3.81,3.96,4.01,4.21,4.26,4.46,4.66,4.71,4.77,4.96,5.0,5.0,5.0,5.0,5.0],[2.47,2.51,2.55,2.59,2.71,2.75,2.78,2.91,2.96,3.01,3.14,3.19,3.32,3.37,3.5,3.55,3.73,3.78,3.95,4.0,4.18,4.36,4.41,4.46,4.64,4.69,4.74,4.92,4.97,5.0],[2.34,2.38,2.41,2.45,2.55,2.59,2.62,2.74,2.78,2.83,2.95,2.99,3.11,3.16,3.32,3.37,3.53,3.58,3.74,3.79,3.95,4.11,4.16,4.21,4.37,4.42,4.46,4.63,4.67,4.84],[2.23,2.26,2.29,2.33,2.43,2.46,2.49,2.59,2.64,2.68,2.79,2.83,2.98,3.02,3.18,3.22,3.37,3.41,3.56,3.6,3.76,3.91,3.95,3.99,4.14,4.18,4.23,4.38,4.42,4.57],[2.13,2.16,2.19,2.22,2.31,2.35,2.38,2.47,2.51,2.55,2.69,2.73,2.87,2.91,3.05,3.09,3.23,3.27,3.41,3.45,3.59,3.73,3.77,3.81,3.95,3.99,4.03,4.17,4.21,4.35],[2.05,2.08,2.1,2.13,2.22,2.25,2.28,2.4,2.44,2.47,2.6,2.64,2.77,2.81,2.94,2.98,3.11,3.14,3.27,3.31,3.44,3.57,3.61,3.65,3.78,3.81,3.85,3.98,4.02,4.15],[1.98,2.0,2.03,2.05,2.17,2.19,2.22,2.34,2.37,2.41,2.53,2.56,2.69,2.72,2.84,2.88,3.0,3.04,3.16,3.19,3.31,3.44,3.47,3.51,3.63,3.66,3.7,3.82,3.86,3.98],[1.94,1.97,1.99,2.02,2.12,2.15,2.17,2.28,2.32,2.35,2.46,2.5,2.61,2.64,2.76,2.79,2.91,2.94,3.05,3.09,3.2,3.32,3.35,3.38,3.5,3.53,3.56,3.68,3.71,3.83],[1.91,1.94,1.96,1.98,2.08,2.11,2.13,2.23,2.26,2.3,2.4,2.44,2.54,2.57,2.68,2.71,2.82,2.85,2.96,2.99,3.1,3.21,3.24,3.27,3.38,3.41,3.44,3.55,3.58,3.69],[1.88,1.91,1.93,1.95,2.05,2.07,2.09,2.19,2.22,2.25,2.35,2.38,2.48,2.51,2.62,2.65,2.75,2.78,2.88,2.91,3.01,3.12,3.15,3.17,3.28,3.31,3.34,3.44,3.47,3.57],[1.86,1.88,1.9,1.92,2.02,2.04,2.06,2.15,2.18,2.21,2.3,2.33,2.43,2.46,2.56,2.58,2.68,2.71,2.81,2.83,2.93,3.03,3.06,3.09,3.18,3.21,3.24,3.34,3.37,3.46],[1.84,1.86,1.88,1.9,1.99,2.01,2.03,2.12,2.14,2.17,2.26,2.29,2.38,2.41,2.5,2.53,2.62,2.65,2.74,2.77,2.86,2.95,2.98,3.01,3.1,3.13,3.15,3.25,3.27,3.37],[1.82,1.84,1.86,1.88,1.96,1.98,2.0,2.08,2.11,2.13,2.22,2.25,2.34,2.36,2.45,2.48,2.57,2.59,2.68,2.7,2.79,2.88,2.91,2.93,3.02,3.05,3.07,3.16,3.19,3.28],[1.8,1.82,1.84,1.86,1.94,1.95,1.97,2.05,2.08,2.1,2.19,2.21,2.3,2.32,2.41,2.43,2.51,2.54,2.62,2.65,2.73,2.82,2.84,2.87,2.95,2.98,3.0,3.09,3.11,3.19],[1.78,1.8,1.82,1.84,1.91,1.93,1.95,2.03,2.05,2.07,2.15,2.18,2.26,2.28,2.36,2.39,2.47,2.49,2.57,2.6,2.68,2.76,2.78,2.81,2.89,2.91,2.93,3.02,3.04,3.12],[1.77,1.79,1.8,1.82,1.89,1.91,1.93,2.0,2.02,2.05,2.12,2.15,2.23,2.25,2.33,2.35,2.43,2.45,2.53,2.55,2.63,2.71,2.73,2.75,2.83,2.85,2.87,2.95,2.97,3.05],[1.76,1.77,1.79,1.8,1.87,1.89,1.91,1.98,2.0,2.02,2.1,2.12,2.19,2.21,2.29,2.31,2.39,2.41,2.48,2.5,2.58,2.66,2.68,2.7,2.77,2.79,2.82,2.89,2.91,2.99],[1.74,1.76,1.77,1.79,1.86,1.87,1.89,1.96,1.98,2.0,2.07,2.09,2.16,2.18,2.26,2.28,2.35,2.37,2.44,2.46,2.54,2.61,2.63,2.65,2.72,2.74,2.76,2.84,2.86,2.93],[1.73,1.75,1.76,1.78,1.84,1.86,1.87,1.94,1.96,1.98,2.05,2.07,2.14,2.16,2.23,2.25,2.32,2.34,2.41,2.43,2.5,2.57,2.59,2.61,2.68,2.7,2.72,2.79,2.81,2.88],[1.72,1.73,1.75,1.76,1.83,1.84,1.86,1.92,1.94,1.96,2.03,2.04,2.11,2.13,2.2,2.22,2.29,2.3,2.37,2.39,2.46,2.53,2.55,2.56,2.63,2.65,2.67,2.74,2.76,2.82],[1.71,1.72,1.74,1.75,1.81,1.83,1.84,1.9,1.92,1.94,2.0,2.02,2.09,2.11,2.17,2.19,2.26,2.27,2.34,2.36,2.42,2.49,2.51,2.53,2.59,2.61,2.63,2.69,2.71,2.78],[1.7,1.71,1.73,1.74,1.8,1.81,1.83,1.89,1.9,1.92,1.99,2.0,2.07,2.08,2.15,2.17,2.23,2.25,2.31,2.33,2.39,2.45,2.47,2.49,2.55,2.57,2.59,2.65,2.67,2.73],[1.69,1.7,1.72,1.73,1.79,1.8,1.81,1.87,1.89,1.91,1.97,1.98,2.05,2.06,2.12,2.14,2.2,2.22,2.28,2.3,2.36,2.42,2.44,2.46,2.52,2.53,2.55,2.61,2.63,2.69],[1.68,1.69,1.71,1.72,1.78,1.79,1.8,1.86,1.87,1.89,1.95,1.97,2.03,2.04,2.1,2.12,2.18,2.2,2.25,2.27,2.33,2.39,2.41,2.42,2.48,2.5,2.52,2.58,2.59,2.65],[1.67,1.69,1.7,1.71,1.76,1.78,1.79,1.84,1.86,1.88,1.93,1.95,2.01,2.02,2.08,2.1,2.16,2.17,2.23,2.25,2.3,2.36,2.38,2.39,2.45,2.47,2.48,2.54,2.56,2.62],[1.67,1.68,1.69,1.7,1.75,1.77,1.78,1.83,1.85,1.86,1.92,1.93,1.99,2.01,2.06,2.08,2.13,2.15,2.21,2.22,2.28,2.33,2.35,2.37,2.42,2.44,2.45,2.51,2.53,2.58],[1.66,1.67,1.68,1.69,1.74,1.76,1.77,1.82,1.83,1.85,1.9,1.92,1.97,1.99,2.04,2.06,2.11,2.13,2.18,2.2,2.25,2.31,2.32,2.34,2.39,2.41,2.42,2.48,2.49,2.55],[1.65,1.66,1.67,1.69,1.74,1.75,1.76,1.81,1.82,1.84,1.89,1.91,1.96,1.97,2.03,2.04,2.09,2.11,2.16,2.18,2.23,2.28,2.3,2.31,2.37,2.38,2.4,2.45,2.46,2.52],[1.64,1.66,1.67,1.68,1.73,1.74,1.75,1.8,1.81,1.83,1.88,1.89,1.94,1.96,2.01,2.03,2.08,2.09,2.14,2.16,2.21,2.26,2.28,2.29,2.34,2.36,2.37,2.42,2.44,2.49],[1.64,1.65,1.66,1.67,1.72,1.73,1.74,1.79,1.8,1.82,1.87,1.88,1.93,1.94,2.0,2.01,2.06,2.07,2.12,2.14,2.19,2.24,2.25,2.27,2.32,2.33,2.35,2.4,2.41,2.46],[1.63,1.64,1.65,1.66,1.71,1.72,1.73,1.78,1.79,1.81,1.85,1.87,1.92,1.93,1.98,1.99,2.04,2.06,2.11,2.12,2.17,2.22,2.23,2.25,2.29,2.31,2.32,2.37,2.39,2.43],[1.63,1.64,1.65,1.66,1.7,1.71,1.72,1.77,1.78,1.8,1.84,1.86,1.91,1.92,1.97,1.98,2.03,2.04,2.09,2.1,2.15,2.2,2.21,2.23,2.27,2.29,2.3,2.35,2.36,2.41],[1.62,1.63,1.64,1.65,1.7,1.71,1.72,1.76,1.77,1.79,1.83,1.85,1.89,1.91,1.95,1.97,2.01,2.03,2.07,2.09,2.13,2.18,2.19,2.21,2.25,2.27,2.28,2.33,2.34,2.39],[1.62,1.63,1.64,1.65,1.69,1.7,1.71,1.75,1.76,1.78,1.82,1.84,1.88,1.89,1.94,1.95,2.0,2.01,2.06,2.07,2.12,2.16,2.17,2.19,2.23,2.25,2.26,2.3,2.32,2.36],[1.61,1.62,1.63,1.64,1.68,1.69,1.7,1.74,1.76,1.77,1.81,1.83,1.87,1.88,1.93,1.94,1.99,2.0,2.04,2.05,2.1,2.14,2.16,2.17,2.21,2.23,2.24,2.28,2.3,2.34],[1.61,1.62,1.63,1.64,1.68,1.69,1.7,1.74,1.75,1.76,1.8,1.82,1.86,1.87,1.92,1.93,1.97,1.98,2.03,2.04,2.08,2.13,2.14,2.15,2.2,2.21,2.22,2.26,2.28,2.32],[1.6,1.61,1.62,1.63,1.67,1.68,1.69,1.73,1.74,1.75,1.8,1.81,1.85,1.86,1.91,1.92,1.96,1.97,2.01,2.03,2.07,2.11,2.12,2.14,2.18,2.19,2.2,2.25,2.26,2.3],[1.6,1.61,1.62,1.63,1.66,1.67,1.68,1.72,1.73,1.75,1.79,1.8,1.84,1.85,1.89,1.91,1.95,1.96,2.0,2.01,2.06,2.1,2.11,2.12,2.16,2.17,2.19,2.23,2.24,2.28],[1.59,1.6,1.61,1.62,1.66,1.67,1.68,1.72,1.73,1.74,1.78,1.79,1.83,1.84,1.88,1.9,1.94,1.95,1.99,2.0,2.04,2.08,2.09,2.11,2.15,2.16,2.17,2.21,2.22,2.26],[1.59,1.6,1.61,1.62,1.65,1.66,1.67,1.71,1.72,1.73,1.77,1.78,1.82,1.83,1.87,1.89,1.93,1.94,1.98,1.99,2.03,2.07,2.08,2.09,2.13,2.14,2.15,2.19,2.21,2.25],[1.59,1.6,1.6,1.61,1.65,1.66,1.67,1.7,1.71,1.73,1.76,1.78,1.82,1.83,1.87,1.88,1.92,1.93,1.97,1.98,2.02,2.06,2.07,2.08,2.12,2.13,2.14,2.18,2.19,2.23],[1.58,1.59,1.6,1.61,1.64,1.65,1.66,1.7,1.71,1.72,1.76,1.77,1.81,1.82,1.86,1.87,1.91,1.92,1.95,1.97,2.0,2.04,2.05,2.06,2.1,2.11,2.12,2.16,2.17,2.21],[1.58,1.59,1.6,1.6,1.64,1.65,1.66,1.69,1.7,1.71,1.75,1.76,1.8,1.81,1.85,1.86,1.9,1.91,1.94,1.95,1.99,2.03,2.04,2.05,2.09,2.1,2.11,2.15,2.16,2.2],[1.58,1.59,1.59,1.6,1.64,1.64,1.65,1.69,1.7,1.71,1.74,1.75,1.79,1.8,1.84,1.85,1.89,1.9,1.93,1.94,1.98,2.02,2.03,2.04,2.08,2.09,2.1,2.13,2.14,2.18],[1.57,1.58,1.59,1.6,1.63,1.64,1.65,1.68,1.69,1.7,1.74,1.75,1.78,1.79,1.83,1.84,1.88,1.89,1.92,1.93,1.97,2.01,2.02,2.03,2.06,2.07,2.08,2.12,2.13,2.17],[1.57,1.58,1.59,1.59,1.63,1.63,1.64,1.68,1.69,1.7,1.73,1.74,1.78,1.79,1.82,1.83,1.87,1.88,1.91,1.92,1.96,2.0,2.01,2.02,2.05,2.06,2.07,2.11,2.12,2.15],[1.57,1.58,1.58,1.59,1.62,1.63,1.64,1.67,1.68,1.69,1.73,1.74,1.77,1.78,1.82,1.83,1.86,1.87,1.91,1.92,1.95,1.99,2.0,2.01,2.04,2.05,2.06,2.1,2.11,2.14],[1.56,1.57,1.58,1.59,1.62,1.63,1.63,1.67,1.68,1.69,1.72,1.73,1.76,1.77,1.81,1.82,1.85,1.86,1.9,1.91,1.94,1.98,1.99,1.99,2.03,2.04,2.05,2.08,2.09,2.13],[1.56,1.57,1.58,1.58,1.62,1.62,1.63,1.66,1.67,1.68,1.72,1.72,1.76,1.77,1.8,1.81,1.85,1.85,1.89,1.9,1.93,1.97,1.98,1.98,2.02,2.03,2.04,2.07,2.08,2.11],[1.56,1.57,1.57,1.58,1.61,1.62,1.63,1.66,1.67,1.68,1.71,1.72,1.75,1.76,1.8,1.8,1.84,1.85,1.88,1.89,1.92,1.96,1.97,1.97,2.01,2.02,2.03,2.06,2.07,2.1],[1.56,1.56,1.57,1.58,1.61,1.62,1.62,1.65,1.66,1.67,1.7,1.71,1.75,1.76,1.79,1.8,1.83,1.84,1.87,1.88,1.91,1.95,1.96,1.97,2.0,2.01,2.02,2.05,2.06,2.09]]};
@@ -261,9 +318,11 @@ const DCS_LOGO_DATA = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAIYCAY
 const NMW_RATE = 12.71;
 const LITRES_PER_GALLON = 4.546;
 const DEFAULT_DIESEL_PPL = 188.26; // UK average diesel pence/litre, RAC Fuel Watch (May 2026)
+const WEAR_PPM = 19; // residual / wear & tear, pence per mile (fixed)
 const TEST_SITE = "Blank / Test Site";
 const SITES = ["Liverpool","Warrington","Preston West","Middleton","Preston DC","Leeds","Stoke","Nottingham","Newcastle","Lincoln",TEST_SITE];
 const STORAGE_KEY = "dcs_dpd_exact_calculator_v2";
+const MOBILE_STORAGE_KEY = "dcs_dpd_mobile_single_route_v1";
 
 const defaultRows = () => SITES.map((site, i) => ({
   id: `site-${i}`,
@@ -315,6 +374,17 @@ function loadState() {
   } catch (_) {}
 }
 function saveState() { try { _storage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) {} }
+
+// Mobile single-route state. Shares diesel + MPG with desktop state so the
+// auto-fetched price drives both views.
+let mState = { site: '', stops: '', miles: '', dcsRate: '', dutyHours: '' };
+function loadMobileState() {
+  try {
+    const saved = JSON.parse(_storage.getItem(MOBILE_STORAGE_KEY) || 'null');
+    if (saved && typeof saved === 'object') mState = { ...mState, ...saved };
+  } catch (_) {}
+}
+function saveMobileState() { try { _storage.setItem(MOBILE_STORAGE_KEY, JSON.stringify(mState)); } catch (_) {} }
 function n(v) { const x = Number(v); return Number.isFinite(x) ? x : 0; }
 function money(v) { return new Intl.NumberFormat('en-GB', {style:'currency', currency:'GBP'}).format(Number.isFinite(v) ? v : 0); }
 function rate(v) { return `£${(Number.isFinite(v) ? v : 0).toFixed(2)}`; }
@@ -356,8 +426,17 @@ function calc(row) {
   const fuelReady = miles > 0 && mpg > 0 && dieselPerLitre > 0;
   const fuelCostPerRoute = fuelReady ? (miles / mpg) * LITRES_PER_GALLON * dieselPerLitre : 0;
   const fuelCostSite = fuelCostPerRoute * routes;
-  const ppm = fuelReady ? (fuelCostPerRoute / miles) * 100 : 0;
-  return {...row, routes, stops, miles, dcsRate, dutyHours, totalStops, dpd, dcsEarnings, dpdEarnings, canCompare, diffRaw, diffAbs, diffLabel, nmwRequiredPerRoute, minDriverStopRate, nmwReady, fuelCostPerRoute, fuelCostSite, ppm, fuelReady};
+  const fuelPpm = fuelReady ? (fuelCostPerRoute / miles) * 100 : 0;
+  // Wear & tear: fixed 19 p/mile, applied whenever miles are entered.
+  const wearReady = miles > 0;
+  const wearCostPerRoute = wearReady ? miles * (WEAR_PPM / 100) : 0;
+  const wearCostSite = wearCostPerRoute * routes;
+  const wearPpm = wearReady ? WEAR_PPM : 0;
+  // Total running cost = fuel + wear. PPM (total) uses whichever components are ready.
+  const totalCostPerRoute = fuelCostPerRoute + wearCostPerRoute;
+  const totalCostSite = totalCostPerRoute * routes;
+  const totalPpm = fuelPpm + wearPpm;
+  return {...row, routes, stops, miles, dcsRate, dutyHours, totalStops, dpd, dcsEarnings, dpdEarnings, canCompare, diffRaw, diffAbs, diffLabel, nmwRequiredPerRoute, minDriverStopRate, nmwReady, fuelCostPerRoute, fuelCostSite, fuelPpm, fuelReady, wearCostPerRoute, wearCostSite, wearPpm, wearReady, totalCostPerRoute, totalCostSite, totalPpm};
 }
 function allCalcs() { return state.rows.map(calc); }
 function renderSummary() {
@@ -368,9 +447,11 @@ function renderSummary() {
     a.dcs += r.dcsEarnings;
     a.dpd += r.dpdEarnings;
     a.fuel += r.fuelCostSite;
+    a.wear += r.wearCostSite;
+    a.run += r.totalCostSite;
     if (r.canCompare) a.diff += r.diffRaw;
     return a;
-  }, {routes:0, stops:0, dcs:0, dpd:0, diff:0, fuel:0});
+  }, {routes:0, stops:0, dcs:0, dpd:0, diff:0, fuel:0, wear:0, run:0});
   const diffClass = totals.diff >= 0 ? 'good' : 'bad';
   const diffLabel = totals.dcs || totals.dpd ? (totals.diff >= 0 ? 'DCS higher total' : 'DPD higher total') : 'Enter site data';
   const mpgVal = Math.max(0, n(state.mpg));
@@ -383,6 +464,8 @@ function renderSummary() {
     <div class="metric"><div class="metric-label">DPD sliding earnings</div><div class="metric-value">${money(totals.dpd)}</div><div class="metric-sub">Using DPD matrix</div></div>
     <div class="metric"><div class="metric-label">Difference</div><div class="metric-value ${diffClass}">${money(Math.abs(totals.diff))}</div><div class="metric-sub">${diffLabel}</div></div>
     <div class="metric"><div class="metric-label">Fuel cost (daily)</div><div class="metric-value">${money(totals.fuel)}</div><div class="metric-sub">${fuelSub}</div></div>
+    <div class="metric"><div class="metric-label">Wear &amp; tear (daily)</div><div class="metric-value">${money(totals.wear)}</div><div class="metric-sub">${WEAR_PPM}p / mile fixed</div></div>
+    <div class="metric"><div class="metric-label">Total run cost (daily)</div><div class="metric-value">${money(totals.run)}</div><div class="metric-sub">Fuel + wear</div></div>
   `;
 
   const days = Math.max(0, n(state.daysPerWeek));
@@ -392,7 +475,9 @@ function renderSummary() {
     dcs: totals.dcs * days,
     dpd: totals.dpd * days,
     diff: totals.diff * days,
-    fuel: totals.fuel * days
+    fuel: totals.fuel * days,
+    wear: totals.wear * days,
+    run: totals.run * days
   };
   const wDiffClass = w.diff >= 0 ? 'good' : 'bad';
   const wDiffLabel = w.dcs || w.dpd ? (w.diff >= 0 ? 'DCS higher / week' : 'DPD higher / week') : 'Enter site data';
@@ -406,6 +491,8 @@ function renderSummary() {
     <div class="metric"><div class="metric-label">DPD earnings / week</div><div class="metric-value">${money(w.dpd)}</div><div class="metric-sub">Using DPD matrix</div></div>
     <div class="metric"><div class="metric-label">Weekly difference</div><div class="metric-value ${wDiffClass}">${money(Math.abs(w.diff))}</div><div class="metric-sub">${wDiffLabel}</div></div>
     <div class="metric"><div class="metric-label">Fuel cost / week</div><div class="metric-value">${money(w.fuel)}</div><div class="metric-sub">${daysLabel}</div></div>
+    <div class="metric"><div class="metric-label">Wear &amp; tear / week</div><div class="metric-value">${money(w.wear)}</div><div class="metric-sub">${WEAR_PPM}p / mile · ${daysLabel}</div></div>
+    <div class="metric"><div class="metric-label">Total run cost / week</div><div class="metric-value">${money(w.run)}</div><div class="metric-sub">Fuel + wear · ${daysLabel}</div></div>
   `;
 }
 function inputCell(rowIndex, field, value, cls, step='1') {
@@ -427,6 +514,7 @@ function renderRows() {
       <td><span id="dpdEarn-${i}" class="money"></span></td>
       <td><span id="diffMoney-${i}" class="money"></span><span id="diffLabel-${i}" class="status neutral"></span></td>
       <td><span id="fuelCost-${i}" class="money"></span><span id="fuelSite-${i}" class="small"></span></td>
+      <td><span id="wearCost-${i}" class="money"></span><span id="wearSite-${i}" class="small"></span></td>
       <td><span id="ppm-${i}" class="money"></span><span id="ppmDetail-${i}" class="small"></span></td>
       <td>${inputCell(i,'dutyHours',r.dutyHours || '', 'hours', '0.25')}<span class="small">hours / route</span></td>
       <td><span id="minDriverRate-${i}" class="money"></span><span class="small">auto-calculated</span></td>
@@ -461,8 +549,10 @@ function updateOutputs() {
     setText(`nmwFormula-${i}`, r.nmwReady ? `${r.dutyHours} hrs × ${rate(NMW_RATE)} ÷ ${r.stops} stops` : `Enter stops and duty time`);
     setText(`fuelCost-${i}`, r.fuelReady ? money(r.fuelCostPerRoute) : '—');
     setText(`fuelSite-${i}`, r.fuelReady && r.routes > 0 ? `${money(r.fuelCostSite)} site total` : 'Enter miles, MPG, price');
-    setText(`ppm-${i}`, r.fuelReady ? `${r.ppm.toFixed(2)}p / mile` : '—');
-    setText(`ppmDetail-${i}`, r.fuelReady ? `${r.miles} mi ÷ ${state.mpg} MPG` : '');
+    setText(`wearCost-${i}`, r.wearReady ? money(r.wearCostPerRoute) : '—');
+    setText(`wearSite-${i}`, r.wearReady && r.routes > 0 ? `${money(r.wearCostSite)} site total · ${WEAR_PPM}p/mile` : `${WEAR_PPM}p / mile`);
+    setText(`ppm-${i}`, r.fuelReady ? `${r.totalPpm.toFixed(2)}p / mile` : (r.wearReady ? `${r.wearPpm.toFixed(2)}p / mile` : '—'));
+    setText(`ppmDetail-${i}`, r.fuelReady ? `${r.fuelPpm.toFixed(2)}p fuel + ${WEAR_PPM}p wear` : (r.wearReady ? `${WEAR_PPM}p wear (add MPG & price for fuel)` : ''));
   });
 }
 function render() {
@@ -475,10 +565,57 @@ function render() {
   renderDieselPill();
   renderSummary();
   renderRows();
+  renderMobile();
+}
+
+// ---- Mobile single-route view ----
+function renderMobile() {
+  // Sync inputs from state
+  const setVal = (id, v) => { const el = document.getElementById(id); if (el && document.activeElement !== el) el.value = v ?? ''; };
+  setVal('mSite', mState.site);
+  setVal('mStops', mState.stops);
+  setVal('mMiles', mState.miles);
+  setVal('mDcsRate', mState.dcsRate);
+  setVal('mDuty', mState.dutyHours);
+  setVal('mMpg', state.mpg);
+  setVal('mDieselPrice', state.dieselPpl);
+
+  // Build a single-route calc by piggy-backing on calc() with routes=1
+  const row = { ...mState, routes: 1, site: 'Mobile', customSite: mState.site };
+  const r = calc(row);
+
+  // Prefilled chips
+  const mpgVal = Math.max(0, n(state.mpg));
+  const ppl = Math.max(0, n(state.dieselPpl));
+  const fuelPpmText = r.fuelReady ? `${r.fuelPpm.toFixed(2)}p / mile` : '—';
+  const fuelPpmDetail = r.fuelReady ? `${ppl.toFixed(2)}p/L ÷ ${mpgVal} MPG` : (mpgVal > 0 && ppl > 0 ? 'enter miles' : 'set MPG & diesel');
+  const fchip = document.getElementById('mFuelPpmChip');
+  if (fchip) fchip.innerHTML = `${fuelPpmText}<small>${fuelPpmDetail}</small>`;
+  const wchip = document.getElementById('mWearPpmChip');
+  if (wchip) wchip.innerHTML = `${WEAR_PPM.toFixed(2)}p / mile<small>fixed residual</small>`;
+
+  const diffClass = !r.canCompare ? '' : r.diffRaw >= 0 ? 'good' : 'bad';
+  const diffLabel = !r.canCompare ? 'enter stops + miles + DCS rate' : r.diffRaw >= 0 ? 'DCS higher' : 'DPD higher';
+  setText('mDcsEarn', r.dcsEarnings > 0 ? money(r.dcsEarnings) : '—');
+  setText('mDcsEarnSub', r.stops > 0 && r.dcsRate > 0 ? `${r.stops} stops × ${rate(r.dcsRate)}` : 'enter stops & DCS rate');
+  setText('mDpdEarn', r.dpdEarnings > 0 ? money(r.dpdEarnings) : '—');
+  setText('mDpdEarnSub', r.stops > 0 && r.miles > 0 ? `${r.stops} stops × ${rate(r.dpd.rate)} (${r.dpd.stopBand}/${r.dpd.mileageBand} band)` : 'enter stops & miles');
+  setText('mDiff', r.canCompare ? money(r.diffAbs) : '—');
+  setClass('mDiff', `val ${diffClass}`);
+  setText('mDiffSub', diffLabel);
+
+  setText('mFuelCost', r.fuelReady ? money(r.fuelCostPerRoute) : '—');
+  setText('mFuelCostSub', r.fuelReady ? `${r.miles} mi ÷ ${mpgVal} MPG × ${ppl.toFixed(2)}p` : 'enter miles, MPG, price');
+  setText('mWearCost', r.wearReady ? money(r.wearCostPerRoute) : '—');
+  setText('mWearCostSub', r.wearReady ? `${r.miles} mi × 19p` : '19p / mile');
+  setText('mTotalPpm', r.fuelReady ? `${r.totalPpm.toFixed(2)}p / mile` : (r.wearReady ? `${WEAR_PPM.toFixed(2)}p / mile` : '—'));
+  setText('mTotalPpmSub', r.fuelReady ? `${r.fuelPpm.toFixed(2)}p fuel + ${WEAR_PPM}p wear` : (r.wearReady ? 'wear only (add MPG & price for fuel)' : 'enter miles + MPG + price'));
+
+  setText('mDriverRate', r.nmwReady ? `${rate(r.minDriverStopRate)} / stop` : '—');
+  setText('mNmwPay', r.dutyHours > 0 ? money(r.nmwRequiredPerRoute) : '—');
+  setText('mNmwPaySub', r.dutyHours > 0 ? `${r.dutyHours} hrs × ${rate(NMW_RATE)}` : 'enter duty hours');
 }
 function renderDieselPill() {
-  const pill = document.getElementById('dieselPill');
-  if (!pill) return;
   let cls = 'fuel-pill';
   let txt = 'manual';
   if (state.dieselSource === 'live') {
@@ -490,9 +627,13 @@ function renderDieselPill() {
   else if (state.dieselSource === 'cached') { cls += ' stale'; txt = state.dieselReportedDate ? `cached · ${new Date(state.dieselReportedDate).toLocaleDateString('en-GB')}` : 'cached'; }
   else if (state.dieselSource === 'default') { cls += ' stale'; txt = 'default'; }
   else if (state.dieselSource === 'manual') { txt = 'manual override'; }
-  pill.className = cls;
-  pill.title = `Source: ${DIESEL_SOURCE_URL}`;
-  pill.textContent = txt;
+  ['dieselPill', 'mDieselPill'].forEach(id => {
+    const p = document.getElementById(id);
+    if (!p) return;
+    p.className = cls;
+    p.title = `Source: ${DIESEL_SOURCE_URL}`;
+    p.textContent = txt;
+  });
 }
 // Fetch live UK diesel pump price from a single fixed source on every page open.
 // The source page is read through r.jina.ai because the origin doesn't send CORS
@@ -550,9 +691,9 @@ async function fetchLiveDieselPrice() {
 }
 function exportCsv() {
   const days = Math.max(0, n(state.daysPerWeek));
-  const headers = ['Date','Site','Routes','Stops per route','Miles per route','DCS static stop rate','DCS static earnings (daily)','DPD sliding rate','DPD stop band','DPD mileage band','DPD sliding earnings (daily)','Difference amount (daily)','Difference direction','Driver duty hours per route','Driver rate calculated from NMW','NMW required pay per route','Diesel price (p/L)','MPG','Fuel cost per route','PPM (pence/mile)','Fuel cost site (daily)','Operating days / week','DCS static earnings (weekly)','DPD sliding earnings (weekly)','Difference amount (weekly)','Fuel cost site (weekly)'];
+  const headers = ['Date','Site','Routes','Stops per route','Miles per route','DCS static stop rate','DCS static earnings (daily)','DPD sliding rate','DPD stop band','DPD mileage band','DPD sliding earnings (daily)','Difference amount (daily)','Difference direction','Driver duty hours per route','Driver rate calculated from NMW','NMW required pay per route','Diesel price (p/L)','MPG','Fuel cost per route','Wear cost per route','Total cost per route (fuel + wear)','Fuel PPM','Wear PPM','Total PPM (fuel + wear)','Fuel cost site (daily)','Wear cost site (daily)','Total run cost site (daily)','Operating days / week','DCS static earnings (weekly)','DPD sliding earnings (weekly)','Difference amount (weekly)','Fuel cost site (weekly)','Wear cost site (weekly)','Total run cost site (weekly)'];
   const lines = [headers];
-  allCalcs().forEach(r => lines.push([state.date, displaySite(r), r.routes, r.stops, r.miles, r.dcsRate.toFixed(2), r.dcsEarnings.toFixed(2), r.dpd.rate.toFixed(2), r.dpd.stopBand ?? '', r.dpd.mileageBand ?? '', r.dpdEarnings.toFixed(2), r.diffAbs.toFixed(2), r.diffLabel, r.dutyHours, r.minDriverStopRate.toFixed(2), r.nmwRequiredPerRoute.toFixed(2), Number(state.dieselPpl).toFixed(2), Number(state.mpg).toFixed(1), r.fuelCostPerRoute.toFixed(2), r.ppm.toFixed(2), r.fuelCostSite.toFixed(2), days, (r.dcsEarnings * days).toFixed(2), (r.dpdEarnings * days).toFixed(2), (r.diffAbs * days).toFixed(2), (r.fuelCostSite * days).toFixed(2)]));
+  allCalcs().forEach(r => lines.push([state.date, displaySite(r), r.routes, r.stops, r.miles, r.dcsRate.toFixed(2), r.dcsEarnings.toFixed(2), r.dpd.rate.toFixed(2), r.dpd.stopBand ?? '', r.dpd.mileageBand ?? '', r.dpdEarnings.toFixed(2), r.diffAbs.toFixed(2), r.diffLabel, r.dutyHours, r.minDriverStopRate.toFixed(2), r.nmwRequiredPerRoute.toFixed(2), Number(state.dieselPpl).toFixed(2), Number(state.mpg).toFixed(1), r.fuelCostPerRoute.toFixed(2), r.wearCostPerRoute.toFixed(2), r.totalCostPerRoute.toFixed(2), r.fuelPpm.toFixed(2), r.wearPpm.toFixed(2), r.totalPpm.toFixed(2), r.fuelCostSite.toFixed(2), r.wearCostSite.toFixed(2), r.totalCostSite.toFixed(2), days, (r.dcsEarnings * days).toFixed(2), (r.dpdEarnings * days).toFixed(2), (r.diffAbs * days).toFixed(2), (r.fuelCostSite * days).toFixed(2), (r.wearCostSite * days).toFixed(2), (r.totalCostSite * days).toFixed(2)]));
   const csv = lines.map(row => row.map(cell => `"${String(cell).replaceAll('"','""')}"`).join(',')).join('\n');
   const blob = new Blob([csv], {type:'text/csv'});
   const url = URL.createObjectURL(blob);
@@ -567,8 +708,16 @@ document.addEventListener('input', (e) => {
   const target = e.target;
   if (target.id === 'calcDate') { state.date = target.value; saveState(); renderSummary(); return; }
   if (target.id === 'daysPerWeek') { state.daysPerWeek = target.value === '' ? 0 : Number(target.value); saveState(); renderSummary(); return; }
-  if (target.id === 'dieselPrice') { state.dieselPpl = target.value === '' ? 0 : Number(target.value); state.dieselSource = 'manual'; state.dieselManualOverride = true; saveState(); renderDieselPill(); renderSummary(); updateOutputs(); return; }
-  if (target.id === 'mpg') { state.mpg = target.value === '' ? 0 : Number(target.value); saveState(); renderSummary(); updateOutputs(); return; }
+  if (target.id === 'dieselPrice') { state.dieselPpl = target.value === '' ? 0 : Number(target.value); state.dieselSource = 'manual'; state.dieselManualOverride = true; saveState(); renderDieselPill(); renderSummary(); updateOutputs(); renderMobile(); return; }
+  if (target.id === 'mpg') { state.mpg = target.value === '' ? 0 : Number(target.value); saveState(); renderSummary(); updateOutputs(); renderMobile(); return; }
+  // Mobile inputs (shared diesel/mpg with desktop state)
+  if (target.id === 'mDieselPrice') { state.dieselPpl = target.value === '' ? 0 : Number(target.value); state.dieselSource = 'manual'; state.dieselManualOverride = true; saveState(); renderDieselPill(); renderMobile(); renderSummary(); updateOutputs(); return; }
+  if (target.id === 'mMpg') { state.mpg = target.value === '' ? 0 : Number(target.value); saveState(); renderMobile(); renderSummary(); updateOutputs(); return; }
+  if (target.id === 'mSite') { mState.site = target.value; saveMobileState(); renderMobile(); return; }
+  if (target.id === 'mStops') { mState.stops = target.value; saveMobileState(); renderMobile(); return; }
+  if (target.id === 'mMiles') { mState.miles = target.value; saveMobileState(); renderMobile(); return; }
+  if (target.id === 'mDcsRate') { mState.dcsRate = target.value; saveMobileState(); renderMobile(); return; }
+  if (target.id === 'mDuty') { mState.dutyHours = target.value; saveMobileState(); renderMobile(); return; }
   if (target.dataset && target.dataset.row !== undefined) {
     const row = Number(target.dataset.row);
     const field = target.dataset.field;
@@ -597,15 +746,16 @@ document.getElementById('copyDownDcs').addEventListener('click', () => {
 });
 
 loadState();
+loadMobileState();
 // Reset session-only manual override if it's a fresh page load and the user
 // hasn't explicitly turned it on this visit. We persist the flag so manual
 // overrides survive a reload; users can clear it by clicking the pill.
 render();
 // Always attempt a live lookup on every page open against the fixed source.
 fetchLiveDieselPrice();
-// Click the pill to clear a manual override and re-enable live updates.
+// Click either pill (desktop or mobile) to clear manual override and re-fetch.
 document.addEventListener('click', (e) => {
-  if (e.target && e.target.id === 'dieselPill') {
+  if (e.target && (e.target.id === 'dieselPill' || e.target.id === 'mDieselPill')) {
     state.dieselManualOverride = false;
     state.dieselSource = 'fetching';
     saveState();
